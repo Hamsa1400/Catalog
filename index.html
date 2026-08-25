@@ -1,0 +1,1252 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>همسة للمجوهرات والساعات والهدايا | كل لمسة بحكاية</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&family=Amiri:wght@700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <style>
+    :root {
+      --rose-primary: #D48C8C;
+      --rose-dark: #A25F60;
+      --rose-light: #F7ECEB;
+      --rose-soft: #FCF7F7;
+      --rose-gradient: linear-gradient(135deg, #ECC8C5 0%, #D48C8C 50%, #B76E79 100%);
+      --gold-accent: #D4AF37;
+      --gold-gradient: linear-gradient(135deg, #DFC15D 0%, #C59A27 100%);
+      --text-main: #2C2023;
+      --text-muted: #7D6B6E;
+      --bg-body: #FAF5F5;
+      --card-bg: #FFFFFF;
+      --border-rose: rgba(212, 140, 140, 0.25);
+      --shadow-sm: 0 4px 15px rgba(183, 110, 121, 0.08);
+      --shadow-md: 0 10px 30px rgba(183, 110, 121, 0.15);
+      --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Cairo', sans-serif; scroll-behavior: smooth; }
+    body { background-color: var(--bg-body); color: var(--text-main); line-height: 1.6; overflow-x: hidden; }
+
+    .top-bar {
+      background: var(--rose-gradient);
+      color: #fff;
+      text-align: center;
+      padding: 8px 15px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      text-shadow: 0 1px 2px rgba(0,0,0,0.1);
+    }
+
+    header {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border-rose);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .nav-wrap {
+      max-width: 1350px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0.6rem 1.5rem;
+    }
+
+    .brand-logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+    }
+
+    .brand-logo img {
+      width: 55px;
+      height: 55px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid var(--rose-primary);
+      box-shadow: 0 2px 10px rgba(212, 140, 140, 0.3);
+    }
+
+    .logo-text-wrap .brand-name {
+      font-family: 'Amiri', serif;
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: var(--rose-dark);
+      line-height: 1;
+    }
+
+    .logo-text-wrap .brand-slogan {
+      font-size: 0.75rem;
+      color: var(--gold-accent);
+      font-weight: 600;
+      letter-spacing: 1px;
+      display: block;
+    }
+
+    .main-nav { display: flex; list-style: none; align-items: center; gap: 1rem; }
+    .main-nav > li { position: relative; }
+    .main-nav a {
+      color: var(--text-main);
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.92rem;
+      padding: 0.5rem 0.6rem;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: var(--transition);
+      cursor: pointer;
+    }
+
+    .main-nav a:hover, .main-nav a.active { color: var(--rose-dark); }
+
+    .dropdown-menu {
+      position: absolute;
+      top: 100%;
+      right: 0;
+      background: #FFFFFF;
+      border: 1px solid var(--border-rose);
+      border-radius: 14px;
+      box-shadow: var(--shadow-md);
+      min-width: 210px;
+      list-style: none;
+      padding: 0.5rem 0;
+      display: none;
+      z-index: 1001;
+      animation: dropFade 0.3s ease;
+    }
+
+    .dropdown-menu li a {
+      padding: 0.65rem 1.2rem;
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      display: block;
+    }
+
+    .dropdown-menu li a:hover {
+      background: var(--rose-soft);
+      color: var(--rose-dark);
+      padding-right: 1.5rem;
+    }
+
+    .has-dropdown:hover .dropdown-menu { display: block; }
+
+    .nav-tools { display: flex; align-items: center; gap: 10px; }
+
+    .search-box {
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+
+    .search-box input {
+      background: var(--rose-soft);
+      border: 1px solid var(--border-rose);
+      padding: 0.45rem 1rem 0.45rem 2.2rem;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      color: var(--text-main);
+      outline: none;
+      width: 160px;
+      transition: var(--transition);
+    }
+
+    .search-box input:focus { width: 220px; border-color: var(--rose-primary); background: #fff; }
+    .search-box i { position: absolute; left: 10px; color: var(--rose-primary); font-size: 0.9rem; }
+
+    .cart-btn {
+      background: var(--rose-soft);
+      border: 1px solid var(--border-rose);
+      color: var(--rose-dark);
+      padding: 0.5rem 1.1rem;
+      border-radius: 20px;
+      cursor: pointer;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: var(--transition);
+    }
+
+    .cart-btn:hover {
+      background: var(--rose-gradient);
+      color: #fff;
+      border-color: transparent;
+      box-shadow: 0 4px 15px rgba(212, 140, 140, 0.4);
+    }
+
+    .hero {
+      padding: 3.5rem 1.5rem 2.5rem;
+      text-align: center;
+      background: radial-gradient(circle at center, #FFFFFF 0%, #F9ECEB 100%);
+      position: relative;
+    }
+
+    .hero-logo-large {
+      width: 110px;
+      height: 110px;
+      border-radius: 50%;
+      margin: 0 auto 1.2rem;
+      box-shadow: 0 8px 25px rgba(183, 110, 121, 0.25);
+      border: 3px solid #fff;
+      display: block;
+    }
+
+    .hero h1 { font-family: 'Amiri', serif; font-size: 2.8rem; color: var(--text-main); margin-bottom: 0.5rem; }
+    .hero h1 span { background: var(--rose-gradient); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    .hero p { color: var(--text-muted); max-width: 650px; margin: 0 auto; font-size: 1.05rem; }
+
+    .categories-strip {
+      background: #FFFFFF;
+      border-top: 1px solid var(--border-rose);
+      border-bottom: 1px solid var(--border-rose);
+      padding: 0.8rem 1rem;
+      position: sticky;
+      top: 72px;
+      z-index: 900;
+    }
+
+    .categories-scroll {
+      max-width: 1350px;
+      margin: 0 auto;
+      display: flex;
+      gap: 0.7rem;
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+    .categories-scroll::-webkit-scrollbar { display: none; }
+
+    .cat-pill {
+      background: var(--rose-soft);
+      border: 1px solid var(--border-rose);
+      color: var(--text-muted);
+      padding: 0.45rem 1.2rem;
+      border-radius: 30px;
+      white-space: nowrap;
+      cursor: pointer;
+      font-size: 0.85rem;
+      font-weight: 600;
+      transition: var(--transition);
+    }
+
+    .cat-pill:hover, .cat-pill.active {
+      background: var(--rose-gradient);
+      color: #fff;
+      border-color: transparent;
+      box-shadow: 0 3px 10px rgba(212, 140, 140, 0.3);
+    }
+
+    .main-content { max-width: 1350px; margin: 2.5rem auto; padding: 0 1.5rem; }
+    .section-header { margin-bottom: 2rem; border-bottom: 1px solid var(--border-rose); padding-bottom: 0.8rem; }
+    .section-header h2 { font-family: 'Amiri', serif; font-size: 2.2rem; color: var(--rose-dark); }
+
+    .products-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 2rem; }
+
+    .product-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border-rose);
+      border-radius: 18px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      box-shadow: var(--shadow-sm);
+      transition: var(--transition);
+    }
+
+    .product-card:hover {
+      transform: translateY(-6px);
+      box-shadow: var(--shadow-md);
+      border-color: var(--rose-primary);
+    }
+
+    .card-badge {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      background: var(--rose-gradient);
+      color: #fff;
+      font-size: 0.72rem;
+      font-weight: 700;
+      padding: 4px 12px;
+      border-radius: 20px;
+      z-index: 5;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+
+    .img-box {
+      width: 100%;
+      height: 290px;
+      background: #FDF9F9;
+      overflow: hidden;
+      position: relative;
+      cursor: pointer;
+    }
+
+    .img-box img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.6s ease;
+    }
+
+    .product-card:hover .img-box img { transform: scale(1.06); }
+
+    .thumb-gallery {
+      display: flex;
+      gap: 6px;
+      padding: 8px 12px;
+      background: #FAF3F3;
+      overflow-x: auto;
+    }
+
+    .thumb-item {
+      width: 44px;
+      height: 44px;
+      flex-shrink: 0;
+      border-radius: 8px;
+      overflow: hidden;
+      border: 1.5px solid transparent;
+      cursor: pointer;
+      transition: var(--transition);
+      background: #fff;
+    }
+
+    .thumb-item.active, .thumb-item:hover { border-color: var(--rose-primary); transform: scale(1.05); }
+    .thumb-item img { width: 100%; height: 100%; object-fit: cover; }
+
+    .card-content { padding: 1.2rem; display: flex; flex-direction: column; flex-grow: 1; }
+    .card-type { font-size: 0.75rem; color: var(--rose-dark); text-transform: uppercase; font-weight: 700; margin-bottom: 4px; }
+    .card-heading { font-size: 1.15rem; color: var(--text-main); margin-bottom: 6px; font-weight: 700; }
+    .card-desc { font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1.2rem; flex-grow: 1; }
+
+    .price-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-top: 1px solid var(--border-rose);
+      padding-top: 0.9rem;
+      margin-top: auto;
+    }
+
+    .price-tag { font-size: 1.3rem; font-weight: 900; color: var(--rose-dark); }
+    .price-tag small { font-size: 0.8rem; color: var(--text-muted); font-weight: normal; }
+
+    .add-btn {
+      background: var(--rose-gradient);
+      color: #fff;
+      border: none;
+      padding: 0.6rem 1.2rem;
+      border-radius: 10px;
+      font-weight: 700;
+      cursor: pointer;
+      font-size: 0.85rem;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: var(--transition);
+    }
+
+    .add-btn:hover {
+      box-shadow: 0 4px 15px rgba(212, 140, 140, 0.4);
+      transform: translateY(-2px);
+    }
+
+    .cart-drawer {
+      position: fixed;
+      top: 0;
+      left: -400px;
+      width: 380px;
+      height: 100vh;
+      background: #FFFFFF;
+      box-shadow: 10px 0 30px rgba(0,0,0,0.15);
+      z-index: 2000;
+      transition: left 0.4s ease;
+      display: flex;
+      flex-direction: column;
+      border-right: 1px solid var(--border-rose);
+    }
+
+    .cart-drawer.open { left: 0; }
+    .cart-header { padding: 1.2rem; border-bottom: 1px solid var(--border-rose); display: flex; justify-content: space-between; align-items: center; background: var(--rose-soft); }
+    .cart-header h3 { color: var(--rose-dark); font-size: 1.15rem; }
+    .cart-items { flex-grow: 1; overflow-y: auto; padding: 1.2rem; display: flex; flex-direction: column; gap: 1rem; }
+    .cart-item { display: flex; gap: 10px; background: var(--rose-soft); padding: 10px; border-radius: 10px; align-items: center; border: 1px solid var(--border-rose); }
+    .cart-item img { width: 55px; height: 55px; object-fit: cover; border-radius: 8px; }
+    .cart-footer { padding: 1.2rem; border-top: 1px solid var(--border-rose); background: #FAF5F5; }
+    .checkout-btn { width: 100%; background: #0084FF; color: #fff; border: none; padding: 0.9rem; border-radius: 10px; font-weight: 700; cursor: pointer; display: flex; justify-content: center; align-items: center; gap: 8px; transition: var(--transition); }
+    .checkout-btn:hover { background: #1eb956; }
+    .cart-overlay { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0,0,0,0.4); z-index: 1999; display: none; }
+    .cart-overlay.active { display: block; }
+
+    @keyframes dropFade { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+
+    @media (max-width: 900px) {
+      .main-nav { display: none; }
+      .search-box { display: none; }
+      .hero h1 { font-size: 2.2rem; }
+      .cart-drawer { width: 100%; left: -100%; }
+    }
+
+    .marquee-section {
+      max-width: 1350px;
+      margin: 2rem auto 0;
+      padding: 0 1.5rem;
+      overflow: hidden;
+    }
+
+    .marquee-title {
+      font-family: 'Amiri', serif;
+      font-size: 1.35rem;
+      color: var(--rose-dark);
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-weight: 700;
+    }
+
+    .marquee-viewport {
+      overflow: hidden;
+      position: relative;
+      border-radius: 18px;
+      background: #FFFFFF;
+      border: 1px solid var(--border-rose);
+      padding: 1.1rem 0;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .marquee-track {
+      display: flex;
+      gap: 1.1rem;
+      width: max-content;
+      animation: marqueeMove 28s linear infinite;
+    }
+
+    .marquee-viewport:hover .marquee-track {
+      animation-play-state: paused;
+    }
+
+    .marquee-item {
+      flex-shrink: 0;
+      width: 165px;
+      cursor: pointer;
+      text-align: center;
+      transition: var(--transition);
+    }
+
+    .marquee-item:hover { transform: translateY(-5px); }
+
+    .marquee-item .m-img-wrap {
+      width: 165px;
+      height: 165px;
+      border-radius: 14px;
+      overflow: hidden;
+      border: 1px solid var(--border-rose);
+      box-shadow: var(--shadow-sm);
+      position: relative;
+    }
+
+    .marquee-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+
+    .marquee-item:hover img { transform: scale(1.08); }
+
+    .marquee-item .m-title {
+      font-size: 0.8rem;
+      color: var(--text-main);
+      margin-top: 8px;
+      font-weight: 600;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      padding: 0 4px;
+    }
+
+    .marquee-item .m-price {
+      font-size: 0.82rem;
+      color: var(--rose-dark);
+      font-weight: 800;
+      margin-top: 2px;
+    }
+
+    @keyframes marqueeMove {
+      from { transform: translateX(0); }
+      to { transform: translateX(-50%); }
+    }
+
+    @media (max-width: 600px) {
+      .marquee-item, .marquee-item .m-img-wrap { width: 115px; height: 115px; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="top-bar">✨ شحن لجميع المناطق | تغليف إهداء ملكي مجاني مع كرت مخصص 🎁</div>
+
+  <header>
+    <div class="nav-wrap">
+      <a href="#" class="brand-logo">
+        <img src="logo.png" alt="شعار همسة" onerror="this.src='https://via.placeholder.com/100/D48C8C/FFFFFF?text=Hamsa'">
+        <div class="logo-text-wrap">
+          <div class="brand-name">هَمْسَة</div>
+          <span class="brand-slogan">كل لمسة بحكاية</span>
+        </div>
+      </a>
+
+      <ul class="main-nav">
+        <li><a onclick="filterStore('all')" class="active">الرئيسية</a></li>
+        <li class="has-dropdown">
+          <a>تسوقي حسب النوع <i class="fa-solid fa-chevron-down" style="font-size: 0.75rem;"></i></a>
+          <ul class="dropdown-menu">
+            <li><a onclick="filterStore('necklaces')">سلاسل وقلادات</a></li>
+            <li><a onclick="filterStore('bracelets')">أساور وانسيالات</a></li>
+            <li><a onclick="filterStore('rings')">خواتم أنيقة</a></li>
+            <li><a onclick="filterStore('earrings')">حلق وأقراط</a></li>
+            <li><a onclick="filterStore('anklets')">خلاخيل ناعمة</a></li>
+            <li><a onclick="filterStore('sets')">أطقم ملكية</a></li>
+          </ul>
+        </li>
+        <li><a onclick="filterStore('new')">🔥 الجديد</a></li>
+        <li><a onclick="filterStore('bestseller')">❤️ الأكثر طلباً</a></li>
+        <li><a onclick="filterStore('sets')">الأطقم</a></li>
+        <li><a onclick="filterStore('gifts')">🎁 الهدايا</a></li>
+        <li><a onclick="filterStore('offers')">🏷️ العروض</a></li>
+        <li><a onclick="filterStore('picks')">✨ اختيارات همسة</a></li>
+      </ul>
+
+      <div class="nav-tools">
+        <div class="search-box">
+          <i class="fa-solid fa-magnifying-glass"></i>
+          <input type="text" id="searchInput" placeholder="بحث عن قطعة..." oninput="handleSearch()">
+        </div>
+        <button class="cart-btn" onclick="toggleCart()">
+          <i class="fa-solid fa-bag-shopping"></i> (<span id="cartCount">0</span>)
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <section class="hero">
+    <img src="logo.png" alt="لوجو همسة للمجوهرات" class="hero-logo-large" onerror="this.style.display='none'">
+    <h1>فخامة وأناقة تليق بكِ مع <span>هَمْسَة</span></h1>
+    <p>مجوهرات مطلية بالذهب عيار 18 مقاومة للماء والصدأ، وساعات وهدايا فاخرة تعبر عن ذوقك الرفيع.</p>
+  </section>
+
+  <nav class="categories-strip">
+    <div class="categories-scroll">
+      <button class="cat-pill active" onclick="filterStore('all', this)">✨ الكل</button>
+      <button class="cat-pill" onclick="filterStore('necklaces', this)">📿 سلاسل وقلادات</button>
+      <button class="cat-pill" onclick="filterStore('bracelets', this)">✨ أساور وانسيالات</button>
+      <button class="cat-pill" onclick="filterStore('rings', this)">💍 خواتم</button>
+      <button class="cat-pill" onclick="filterStore('earrings', this)">✨ حلق وأقراط</button>
+      <button class="cat-pill" onclick="filterStore('anklets', this)">✨ خلاخيل</button>
+      <button class="cat-pill" onclick="filterStore('sets', this)">👑 أطقم</button>
+      <button class="cat-pill" onclick="filterStore('new', this)">🔥 الجديد</button>
+      <button class="cat-pill" onclick="filterStore('bestseller', this)">❤️ الأكثر مبيعاً</button>
+      <button class="cat-pill" onclick="filterStore('gifts', this)">🎁 هدايا وباقات</button>
+    </div>
+  </nav>
+
+  <section class="marquee-section" id="marqueeSection">
+    <div class="marquee-title">🔥 وصل حديثاً - أحدث تشكيلات همسة</div>
+    <div class="marquee-viewport">
+      <div class="marquee-track" id="marqueeTrack"></div>
+    </div>
+  </section>
+
+  <main class="main-content">
+    <div class="section-header">
+      <h2 id="sectionTitle">جميع المنتجات والتشكيلات</h2>
+    </div>
+    <div class="products-grid" id="productsGrid"></div>
+  </main>
+
+  <div class="cart-overlay" id="cartOverlay" onclick="toggleCart()"></div>
+  <div class="cart-drawer" id="cartDrawer">
+    <div class="cart-header">
+      <h3>🛍️ سلة مشتريات همسة</h3>
+      <button style="background:none; border:none; color:var(--rose-dark); font-size:1.5rem; cursor:pointer;" onclick="toggleCart()">&times;</button>
+    </div>
+    <div class="cart-items" id="cartItems"></div>
+    <div class="cart-footer">
+      <div style="display:flex; justify-content:space-between; margin-bottom:1rem; font-weight:700;">
+        <span>الإجمالي:</span>
+        <span id="cartTotal" style="color:var(--rose-dark);">0 جم</span>
+      </div>
+     <button class="checkout-btn" onclick="checkoutMessenger()">
+  <i class="fa-brands fa-facebook-messenger"></i> تأكيد الطلب عبر ماسنجر
+</button>
+    </div>
+  </div>
+
+  <script>
+    /* =========================================================
+       قاعدة بيانات المنتجات المنظمة والشاملة
+       ========================================================= */
+    const products = [
+     {
+        id: 6,
+        title: "قلادة سداسية عصرية قطعة واحدة",
+        category: "necklaces",
+        categoryName: "السلاسل والقلادات",
+        tags: ["new", "gifts", "picks"],
+        price: 310,
+        specs: "قلادة سداسية عصرية قطعة واحدة، إكسسوارات ، مجوهرات، هدية عطلة للعائلة.",
+        badge: "🔥 وصل حديثاً",
+        images: [
+          "4fc8bd6c2b6b4dd398cd4acf46cacfe0-goods.avif"
+        ]
+      },
+      {
+        id: 7,
+        title: "قلادة لفظ الجلالة (الله) الإسلامية",
+        category: "necklaces",
+        categoryName: "السلاسل والقلادات",
+        tags: ["new", "picks"],
+        price: 210,
+        specs: "قلادة سلك من الفولاذ المقاوم للصدأ على شكل الله الإسلامي",
+        badge: "🔥 وصل حديثاً",
+        images: [
+          "63570d3f-ebfa-4572-aae0-5fee03c737ad.avif"
+        ]
+      },
+      {
+        id: 8,
+        title: "سوار فاخر مطلي بالذهب 18K",
+        category: "bracelets",
+        categoryName: "الأساور والانسيالات",
+        tags: ["new", "bestseller", "gifts"],
+        price: 170,
+        specs: "سوار | مطلي بالذهب 18K، طراز عتيق، مثالي للارتداء اليومي أو وهدية مناسبة لجميع الفصول، مثالي للأعياد وحفلات الزفاف",
+        badge: "🔥 وصل حديثاً",
+        images: [
+          "40e6fcb5b6bd462da1a0c251c5b4ebe7-goods (1).avif"
+        ]
+      },
+ {
+        id: 1,
+        title: "سوار كوبي أنيق ورقيق مطلي بالذهب 18K",
+        category: "bracelets",
+        categoryName: "الأساور والانسيالات",
+        tags: ["bestseller", "picks"],
+        price: 170,
+        specs: "سوار كوبي أنيق ورقيق مطلي بالذهب عيار 18 قيراط من الفولاذ المقاوم للصدأ عالي الجودة 316L] ، مناسبة للحفلات اليومية والتجمعات والاعياد.",
+        badge: "✨ 316L فائق الجودة",
+        images: [
+          "241725d6-f511-4b35-b37d-2c2ca5e7670e (1).avif.jpg",
+          "69344274-6048-4f6f-8259-2f84b5d8b4e0.jPG",
+          "cb4ed569-5ec5-43fc-a525-d55a45cc596d.avif.jpg",
+          "d3d68eb8-43e1-4e54-8d3a-98a52d57c8c5 (1).avif.jpg",
+          "d41be397-0662-429e-a208-712b329da80a.avif.jpg"
+        ]
+      },
+      {
+        id: 2,
+        title: "سلسلة  قلب الخوخ الفاخرة",
+        category: "necklaces",
+        categoryName: "السلاسل والقلادات",
+        tags: ["new", "gifts", "picks"],
+        price: 250,
+        specs: "طعة واحدة قلادة صغيرة من النحاس المستدير على شكل خرزة على شكل قلب خوخ، رائعة وأنيقة وعصرية، سهلة",
+        badge: "🎁 خيار إهداء مميز",
+        images: [
+          "21c0ec63-c62a-4e92-9002-177511e3265c.jpg",
+          "40b2af07-f4ad-466d-a8c7-999d4b26526e.jpg",
+          "073859a7-d91c-4eb1-a5f9-3a88d503b156.jpg",
+	  "b028b1ac-799a-45fe-a4be-a8b34d500a8e.jpg"
+        ]
+      },
+
+      {
+        id: 3,
+        title: "قلادة فاخرة مزينة بخمسة خرز صغيرة",
+        category: "necklaces",
+        categoryName: "السلاسل والقلادات",
+        tags: ["new", "gifts", "picks"],
+        price: 95,
+        specs: "لادة فاخرة مزينة بخمسة خرز صغيرة، مطلية، مصنوعة من الفولاذ المقاوم للصدأ، مناسبة للارتداء اليومي للنساء أو كهدية",
+        badge: "🎁 خيار إهداء مميز",
+        images: [
+          "33b5098a-a5dc-403a-ac6c-1ecb7c06d9de.jpg",
+          "16074a45-974a-49b3-958b-f356461fbe30.jpg",
+	  "e4c290a3-dc30-4583-a509-ae1248553349.jpg"
+        ]
+      },
+ {
+        id: 4,
+        title: "طقم أساور وحلقة نسائية بتصميم فضي",
+        category: ["bracelets","rings"],
+        categoryName: ["خواتم " ,"الأساور والانسيالات"],       
+        tags: ["new", "gifts", "picks"],
+        price: 370,
+        specs: "طقم أساور وحلقة نسائية بتصميم رمضان على الطراز العربي مطلي بالذهب النحاسي، طبقتان مزدوجتين",
+        badge: "🎁 خيار إهداء مميز",
+        images: [
+	  "80281d69-bd63-4186-a5e2-81f25d55b6b7.avif",
+	  "80281d69-bd63-4186-a5e2-81f25d55b6b7.jpg",
+          "3a99f719-d45b-42cc-941d-3742b5afee7b.avif"
+        ]
+      },
+{
+        id: 5,
+        title: "طقم أساور وحلقة نسائية بتصميم ذهبي",
+                  category: ["bracelets","rings"],
+        categoryName: ["خواتم " ,"الأساور والانسيالات"],
+        tags: ["new", "gifts", "picks"],
+        price: 385,
+        specs: "طقم أساور وحلقة نسائية بتصميم رمضان على الطراز العربي مطلي بالذهب النحاسي، طبقتان مزدوجتين",
+        badge: "🎁 خيار إهداء مميز",
+        images: [
+	  "1.jpg",
+          "318b50f1-2c3a-49fe-bbe0-24d5db9f3f46.jpg",
+	  "42056c68-6e79-41c6-9dc8-9c9eaf0880aa.jpg",
+        ]
+      },
+{
+        id: 9,
+        title: "طقم أساور نسائية أنيقة مطلية بالذهب عيار 18 قيراط ",
+          category: "bracelets",
+        categoryName: "الأساور والانسيالات",
+        tags: ["new", "gifts", "picks"],
+        price: 900,
+        specs: "طقم أساور نسائية أنيقة مطلية بالذهب عيار 18 قيراط مكون من 5 قطع، سوار مرصع قابل للتركيب فوق بعضه، مرصع بزركونيا مكعبة صناعية، تصميم عصري مقاوم للبهتان وغير مسبب للحساسية",
+        badge: "🎁 خيار إهداء مميز",
+        images: [
+	  "5ffbd5f452c64cb3873e83c82b094618-goods.jpg",
+          "2df7a60d0f4d4825bb70dc1f0799f9a2-goods.jpg",
+	  "6dc401fa210647b59939435f197d9d1a-goods.jpg",
+	  "7af4a81f463f44a6b3a352cb76de8bbe-goods.jpg",
+	  "d72bf191d4f441e2ad2110f659f78daf-goods.jpg"        ]
+      },
+{
+        id: 10,
+        title: "طقم قلادة و سوار من الفولاذ ",
+        category: ["necklaces",  "bracelets"],
+        categoryName: ["السلاسل والقلادات " ,"الأساور والانسيالات"],
+        tags: ["new", "gifts", "picks"],
+        price: 345,
+        specs: "طقم قلادة و سوار من الفولاذ المقاوم للصدأ مطلي بالذهب عيار 18 قيراط",
+        badge: "🎁 خيار إهداء مميز",
+        images: [
+          "a0887f86695f433c9fb8c824062ba52c-goods.avif",
+          "ed4c64252edf4cc3af5d50bd52a86a36-goods.avif",
+          "42fe6031a906453c80658a1f3e4dad77-goods.jpg",
+          "8469bc8fe5d34db48748348eda06f304-goods.jpg",
+	  "599146a7a66f41efbd1a5220d6b41898-goods.jpg"
+        ]
+      },
+{
+        id: 11,
+        title: "قطعة واحدة من قلادة شوكير  ",
+        category: "necklaces",
+        categoryName: ["السلاسل والقلادات " ,"الأساور والانسيالات"],
+        tags: ["new", "gifts", "picks"],
+        price: 130,
+        specs: "قطعة واحدة من قلادة شوكير سلسلة قلب حب مصنوعة من الفولاذ المقاوم للصدأ، مجوهرات نسائية عصرية وأنيقة، مناسبة للارتداء اليومي",
+        badge: "🎁 خيار إهداء مميز",
+        images: [
+          "81fcab92-e6fd-48a4-888c-16c0410d2a50.jpg",
+          "c1b3f64114fbb6f9fc00c8a7124fa55e.jpg",
+          "9209c216-d023-11f0-a18c-0a580ab02cf5.avif",
+        ]
+      },
+{
+        id: 12,
+        title: "طقم حلقان نسائية متدلية عصرية مكون من 6 قطع",
+          category: "earrings",
+        categoryName: "حلق وأقراط",
+        tags: ["new", "gifts", "picks"],
+        price: 170,
+        specs: "طقم أقراط نسائية متدلية عصرية مكون من 6 قطع، بتصميم بسيط على الطراز الياباني/الكوري، أقراط مسمارية على شكل قلب من زركونيا مكعبة",
+        badge: "🎁 خيار إهداء مميز",
+        images: [
+	  "ce590bcff0a802cf5d7d0b459ff1fbef.jpg",
+          "8717db38-38d9-4970-851c-e56bee5851b9.jpg",
+	  "9cbbf187-8ffb-4cd1-a68c-d7bec0a2b36f.avif",
+	  "d32fdd7a-b0ce-439e-a034-fb0bf3894373.avif",
+	  "4e55d5fe-75cf-4440-8347-f1f174011514.avif" 
+       ]
+      },
+{
+ 	id:  13,
+        title: "قلادة ذهبية",
+        category: "necklaces",
+        categoryName: "السلاسل والقلادات",
+        tags: ["new", "gifts", "picks"],
+        price: 170,
+        specs: "لادة ذهبية نسائية، قلادات رقيقة للنساء، قلادات شوكير سهلة بتصميم مشبك ورق، قلادات بيضاوية مفتوحة لطيفة وبسيطة",
+        badge: "🎁 خيار إهداء مميز",
+        images: [
+	  "77013f90-bc3d-493f-94c5-7038f6ec6e75.jpg",
+	"fca006b816874727ae8eecf7f34bc840-goods.avif"
+    ]
+      },
+
+{
+ 	id:  6,
+        title: "قلادة نسائية فاخرة من نيش، سلسلة عظمة الترقوة، ",
+        category: "necklaces",
+        categoryName: "السلاسل والقلادات",
+        tags: ["new", "gifts", "picks"],
+        price: 255,
+        specs: "قلادة نسائية فاخرة من نيش، سلسلة عظمة الترقوة، ذهبية مطلية بسهولة، خفيفة الوزن، بتصميم Clover	",
+        badge: "🎁 خيار إهداء مميز",
+        images: [
+	  "51f91e21-7107-4330-9002-656a7cf1b1dc.jpg",
+	"53b176b1-6ae0-4d59-b53a-af96874dbefa.jpg",
+	"53b176b1-6ae0-4d59-b53a-af96874dbefa.avif"
+    ]
+ },
+{
+        id: 14,
+        title: "قلادة عالية الجودة من الفولاذ المقاوم للصدأ مضادة للبهتان",
+        category: "necklaces",
+        categoryName: "السلاسل والقلادات",
+        tags: ["new", "gifts"],
+        price: 140,
+        specs: "قلادة عالية الجودة من الفولاذ المقاوم للصدأ مضادة للبهتان، قلادة نسائية عصرية، بسيطة وأنيقة",
+        badge: "🎁 خيار إهداء مميز",
+        images: [
+          "55ab8280ee074ccc8ab95a758341e744-goods.avif",
+          "55ab8280ee074ccc8ab95a758341e744-goods.jpg",
+          "86a423f3760847739993442d2b9a10d8-goods.avif"
+        ]
+      },
+    
+	 {
+        id: 15,
+        title: "قلادة \"زهرة الحياة\" العصرية من الفولاذ المقاوم للصدأ",
+        category: "necklaces",
+        categoryName: "السلاسل والقلادات",
+        tags: ["new", "gifts"],
+        price: 265,
+        specs: "قلادة \"زهرة الحياة\" العصرية من الفولاذ المقاوم للصدأ للنساء، لون ذهبي، قلادة طويلة",
+        badge: "🎁 خيار إهداء مميز",
+        images: [
+          "411a3aa0-b24c-4043-9806-22aa1f74f82d.jpg",
+          "a5094a08-f61d-49fe-afa5-3a13e354d534.jpg",
+          "e133091a-c4ee-46a3-a141-96e36eefec28.jpg",
+          "ea26ea42-d190-42b8-b1f5-5efdb54c07b8.jpg"
+        ]
+      },
+      {
+        id: 16,
+        title: "قطعة قلادة طويلة قابلة للتعديل على شكل Y",
+        category: "necklaces",
+        categoryName: "السلاسل والقلادات",
+        tags: ["new", "picks"],
+        price: 187,
+        specs: "قطعة قلادة طويلة قابلة للتعديل على شكل Y من الفولاذ المقاوم للصدأ مطلية بالذهب 18K",
+        badge: "🎁 خيار إهداء مميز",
+        images: [
+          "415d8191-6102-45e4-8a7a-92e832714ebb.jpg",
+          "4d2a4b76-9ac4-4533-ab80-40f7e21cf01c.jpg"
+        ]
+      },
+      {
+        id: 17,
+        title: "قلادة سلسلة سويتر طويلة على الطراز الكوري",
+        category: "necklaces",
+        categoryName: "السلاسل والقلادات",
+        tags: ["new", "gifts"],
+        price: 180,
+        specs: "قلادة سلسلة سويتر طويلة على الطراز الكوري، زهرة متعددة الطبقات، لؤلؤ مقلد، قلادة وردة",
+        badge: "🎁 خيار إهداء مميز",
+        images: [
+          "1f6700e6-71f2-493e-8401-a1e3f74e50cf.jpg",
+          "963d3002-5592-4f9d-ab3b-d73178542f7f.jpg",
+          "d4b2ab71bbfd4ca061f69b7d92f8881e.jpg"
+        ]
+      },
+      {
+        id: 18,
+        title: "12 قطعة طقم مجوهرات سلسلة متعددة من الفولاذ المقاوم للصدأ",
+        category: "necklaces",
+        categoryName: "السلاسل والقلادات",
+        tags: ["sets", "gifts"],
+        price: 660,
+        specs: "12 قطعة طقم مجوهرات سلسلة متعددة من الفولاذ المقاوم للصدأ مطلي بالذهب عيار 18 - 12 قلادة (دائرية، ثعبان، مطروقة، ملتوية)",
+        badge: "🎁 خيار إهداء مميز",
+        images: [
+          "1ea52e2f-55f4-435d-9d7e-a6a40e34378f.jpg",
+          "897204c1-7540-4b08-8e3e-cbf49a8e8982.jpg",
+          "d5143dca-8bb5-46b3-9ae3-947b040b8639.jpg"
+        ]
+      },
+      {
+        id: 19,
+        title: "[قلادة Ganicat] قلادة نسائية من الفولاذ المقاوم للصدأ 316 316،",
+        category: "necklaces",
+        categoryName: "السلاسل والقلادات",
+        tags: ["new", "picks"],
+        price: 150,
+        specs: "[قلادة Ganicat] قلادة نسائية من الفولاذ المقاوم للصدأ 316 316، مقاومة للبهتان ومضادة للحساسية",
+        badge: "🎁 خيار إهداء مميز",
+        images: [
+          "60af62562c44be6fed1ce2cd81e4699b.jpg",
+          "7e93058942e70c37171d195f1e376487.jpg",
+          "88822749-de41-43ed-9ee7-fe4a8ce3758b.jpg",
+          "dcc7c48c-e69c-43b6-b190-8a0631ff9440.avif"
+        ]
+      },
+      {
+        id: 20,
+        title: "قلادة أنيقة وبسيطة من الفولاذ المقاوم للصدأ 304 مع سلسلة ثلاثية الطبقات",
+        category: "necklaces",
+        categoryName: "السلاسل والقلادات",
+        tags: ["new", "picks"],
+        price: 245,
+        specs: "قلادة أنيقة وبسيطة من الفولاذ المقاوم للصدأ 304 مع سلسلة ثلاثية الطبقات، قلادة عملة",
+        badge: "🎁 خيار إهداء مميز",
+        images: [
+          "0c5c4669-3130-4d27-b54c-33c75f855835.jpg",
+          "543e1ccb-cbff-474a-9ea8-7bd9be5df549.jpg",
+          "bdcd4b32-7ccd-425a-8240-68db936f37f2.jpg",
+          "f26c68f5-840c-4084-9d5e-94723f9330e2.jpg"
+        ]
+      },
+      {
+        id: 21,
+        title: "طقم أساور إسوارة مفتوحة",
+        category: "bracelets",
+        categoryName: "الأساور والانسيالات",
+        tags: ["sets", "gifts"],
+        price: 150,
+        specs: "طقم أساور إسوارة مفتوحة من الفولاذ المقاوم للصدأ مطلية بالذهب عيار 18 قيراط",
+        badge: "🎁 خيار إهداء مميز",
+        images: [
+          "39fe342c-9559-49e6-b1b3-85c08832a6ec.jpg",
+          "630d8ce9-10d9-4a35-8339-7155254c042e.avif",
+          "b0808cb9-be77-41cb-9434-2ce3c9b3ec30.jpg"
+        ]
+      },
+      {
+        id: 22,
+        title: "قلادة سلسلة أنيقة للجنسين مطلية بالذهب عيار 18K",
+        category: "necklaces",
+        categoryName: "السلاسل والقلادات",
+        tags: ["new", "gifts"],
+        price: 110,
+        specs: "قلادة سلسلة أنيقة للجنسين مطلية بالذهب عيار 18K مع قلادة رائعة",
+        badge: "🎁 خيار إهداء مميز",
+        images: [
+          "3078f793-3a36-403d-a2b6-3770fe5345c1.jpg",
+          "3451cfd8-b2b2-4e53-9e9d-5beee13b7925.jpg",
+          "ba6f7e27-2ac0-48be-b759-ddc3c0726127.jpg"
+        ]
+      },
+      {
+        id: 23,
+        title: "قلادة بطول 90 سم متدرجة، قلادة لؤلؤ مقلد عالي الجودة،",
+        category: "necklaces",
+        categoryName: "السلاسل والقلادات",
+        tags: ["picks", "gifts"],
+        price: 510,
+        specs: "قلادة بطول 90 سم متدرجة، قلادة لؤلؤ مقلد عالي الجودة، إبزيم ثعبان مرصع قابل للتعديل",
+        badge: "🎁 خيار إهداء مميز",
+        images: [
+          "5637a709-e1fc-4959-bc01-189fa6cf7681.jpg",
+          "702272c4-6ba9-4f0c-bcf6-c4eb462db8be.jpg",
+          "f2801a7f-fb1a-4cf3-b43a-044ba2dc1035.jpg"
+        ]
+      },
+      {
+        id: 24,
+        title: "قطعة أساور من الفولاذ المقاوم للصدأ بنمط فيجارو وكوبا",
+        category: "bracelets",
+        categoryName: "الأساور والانسيالات",
+        tags: ["new", "picks"],
+        price: 250,
+        specs: "قطعة أساور من الفولاذ المقاوم للصدأ بنمط فيجارو وكوبا، مجموعة مزدوجة الطبقات قابلة للتكديس",
+        badge: "🎁 خيار إهداء مميز",
+        images: [
+          "21242348-6c0b-436b-9b98-0b9cc0d6b872.jpg",
+          "2edfbde4-1950-457e-9a82-c2217ebff4f9.jpg",
+          "81b50547-a064-4431-9305-4261398704a3.jpg",
+          "ad65a8a9-91d5-4e86-af1b-84960c2333b5.jpg"
+        ]
+      },
+      {
+        id: 25,
+        title: "طقم مجوهرات ذهبية من الفولاذ المقاوم للصدأ مطلي بقلادة وسوار",
+        category: "sets",
+        categoryName: "الأطقم الملكية",
+        tags: ["sets", "gifts"],
+        price: 390,
+        specs: "طقم مجوهرات ذهبية من الفولاذ المقاوم للصدأ مطلي بقلادة وسوار مربعة مكعبة، طقم من قطعتين INS فرنسي أنيق وفاخر",
+        badge: "🎁 خيار إهداء مميز",
+        images: [
+          "1722824755358-d01437c4669840258603c997a41026cb-goods.jpg",
+          "1722824756097-583b6e77b9cb4ab9b0ed1dbcb5dabd1a-goods.jpg"
+        ]
+      },
+      {
+        id: 26,
+        title: "قلادة فضية عصرية ورائعة لامعة مضادة للحساسية قطعة واحدة، سلسلة عظمة الترقوة",
+        category: "necklaces",
+        categoryName: "السلاسل والقلادات",
+        tags: ["new", "offers"],
+        price: 65,
+        specs: "قلادة عصرية ورائعة لامعة مضادة للحساسية قطعة واحدة، سلسلة عظمة الترقوة دقيقة للنساء من الفولاذ المقاوم للصدأ، مقاومة للبهتان،",
+        badge: "🎁 خيار إهداء مميز",
+        images: [
+          "3a209920294440ec919fd72dd956b5e6-goods.avif",
+          "fcb124f8eda3493fb25a0b4013516113-goods.jpg",
+          "fee292bb99db4b9f8bfc3aca007e643a-goods.jpg"
+        ]
+      },
+      {
+        id: 27,
+        title: "سوار أنيق من الفولاذ المقاوم للصدأ، مصنوع من مادة الفولاذ المقاوم",
+        category: "bracelets",
+        categoryName: "الأساور والانسيالات",
+        tags: ["picks", "gifts"],
+        price: 800,
+        specs: "سوار أنيق من الفولاذ المقاوم للصدأ، مصنوع من مادة الفولاذ المقاوم للصدأ، يمكن غسله وعدم تلاشيسه بسهولة",
+        badge: "🎁 خيار إهداء مميز",
+        images: [
+          "44622a7f-5f67-4d60-9dc4-12e7f1624683.jpg",
+          "5040cbcc-9ca1-4d27-a7c5-85dca1f2e303.jpg",
+          "bf9c623f-a1c7-4009-9cd7-ee3059e91e2e.jpg",
+          "cda0225b68cd4003bafe65c77f9f1d14-goods.jpg"
+        ]
+      },
+      {
+        id: 28,
+        title: "قلادة أنيقة على شكل مربع من الفولاذ المقاوم للصدأ،",
+        category: "necklaces",
+        categoryName: "السلاسل والقلادات",
+        tags: ["new", "gifts"],
+        price: 120,
+        specs: "قلادة أنيقة على شكل مربع من الفولاذ المقاوم للصدأ، مناسبة للنساء للارتداء في الحفلات",
+        badge: "🎁 خيار إهداء مميز",
+        images: [
+          "5e37406c-152a-4c9a-92e3-71199285cd84.jpg",
+          "d86fdc0a-bc16-4993-afc7-acb6fdc2fc3e.jpg"
+        ]
+      },
+      {
+        id: 29,
+        title: "قلادة ذهبية عصرية ورائعة لامعة مضادة للحساسية قطعة واحدة، سلسلة عظمة الترقوة",
+        category: "necklaces",
+        categoryName: "السلاسل والقلادات",
+        tags: ["new", "offers"],
+        price: 80,
+        specs: "قلادة عصرية ورائعة لامعة مضادة للحساسية قطعة واحدة، سلسلة عظمة الترقوة دقيقة للنساء من الفولاذ المقاوم للصدأ، مقاومة للبهتان،",
+        badge: "🎁 خيار إهداء مميز",
+        images: [
+          "0a2f5f56f57946bb8bdf07148d03e450-goods.jpg",
+          "458a08c78ea444d5af381ab1608a6826-goods.jpg",
+          "6468228c59b546bf886392d44ec35da4-goods.jpg",
+          "6c0d21b801064ed69f2b8277887b31a0-goods.jpg",
+          "86a9a8b0d9dd4b9688cd7b52ae69c677-goods.jpg"
+        ]
+      }
+    ];
+
+    const categoryNames = {
+      all: 'جميع المنتجات والتشكيلات',
+      necklaces: '📿 تشكيلة السلاسل والقلادات',
+      bracelets: '✨ تشكيلة الأساور والانسيالات',
+      rings: '💍 تشكيلة الخواتم الراقية',
+      earrings: '✨ تشكيلة الحلق والأقراط',
+      anklets: '✨ تشكيلة الخلاخيل الناعمة',
+      sets: '👑 تشكيلة الأطقم الملكية',
+      new: '🔥 جديد همسة - وصل حديثاً',
+      bestseller: '❤️ القطع الأكثر طلباً ومبيعاً',
+      gifts: '🎁 باقات وتنسيقات الهدايا',
+      offers: '🏷️ العروض والتخفيضات الحصرية',
+      picks: '✨ اختيارات وتوصيات همسة الخاصة'
+    };
+
+    let currentFilter = 'all';
+
+    function renderMarquee() {
+      const section = document.getElementById('marqueeSection');
+      const track = document.getElementById('marqueeTrack');
+      const newItems = products.filter(p => p.tags.includes('new'));
+
+      if (newItems.length === 0) {
+        section.style.display = 'none';
+        return;
+      }
+
+      const doubled = [...newItems, ...newItems];
+
+      track.innerHTML = doubled.map(p => `
+        <div class="marquee-item" onclick="filterStore('new', document.querySelector('.cat-pill[onclick*=&quot;new&quot;]'))">
+          <div class="m-img-wrap">
+            <img src="${p.images[0]}" onerror="this.src='https://via.placeholder.com/165/F7ECEB/A25F60?text=Hamsa'">
+          </div>
+          <div class="m-title">${p.title}</div>
+          <div class="m-price">${p.price} جم</div>
+        </div>
+      `).join('');
+
+      // ضبط سرعة الشريط بدقة بحيث تكون المسافة الفاصلة بين كل عنصرين = نصف ثانية بالضبط
+      requestAnimationFrame(() => {
+        const gapPx = parseFloat(getComputedStyle(track).gap) || 0;
+        const speedPxPerSecond = gapPx / 0.5;
+        const halfTrackWidth = track.scrollWidth / 2;
+        const durationSeconds = halfTrackWidth / speedPxPerSecond;
+        track.style.animationDuration = durationSeconds + 's';
+      });
+
+      // إضافة وقفة قصيرة (أقل من ثانية) بعد اكتمال كل دورة كاملة للشريط قبل بدء الدورة التالية
+      track.addEventListener('animationiteration', () => {
+        track.style.animationPlayState = 'paused';
+        setTimeout(() => {
+          track.style.animationPlayState = 'running';
+        }, 700);
+      });
+    }
+
+    function renderProducts(items) {
+      const grid = document.getElementById('productsGrid');
+      if (items.length === 0) {
+        grid.innerHTML = '<p style="text-align:center; grid-column:1/-1; color:var(--text-muted); padding:3rem;">لا توجد منتجات تطابق اختيارك حالياً.</p>';
+        return;
+      }
+
+      grid.innerHTML = items.map(p => `
+        <article class="product-card">
+          ${p.badge ? `<span class="card-badge">${p.badge}</span>` : ''}
+          <div class="img-box">
+            <img id="main-img-${p.id}" src="${p.images[0]}" onerror="this.src='https://via.placeholder.com/400x400/F7ECEB/A25F60?text=Hamsa+Jewelry'">
+          </div>
+          ${p.images.length > 1 ? `
+            <div class="thumb-gallery">
+              ${p.images.map((img, idx) => `
+                <div class="thumb-item ${idx === 0 ? 'active' : ''}" onclick="changeImg(${p.id}, '${img}', this)">
+                  <img src="${img}" onerror="this.src='https://via.placeholder.com/80/F7ECEB/A25F60?text=Hamsa'">
+                </div>
+              `).join('')}
+            </div>
+          ` : ''}
+          <div class="card-content">
+            <span class="card-type">${p.categoryName}</span>
+            <h3 class="card-heading">${p.title}</h3>
+            ${p.specs ? `<p class="card-desc">${p.specs}</p>` : ''}
+            <div class="price-row">
+              <div class="price-tag">${p.price} <small>جم</small></div>
+              <button class="add-btn" onclick="addToCart('${p.title}', ${p.price}, '${p.images[0]}')">
+                <i class="fa-solid fa-plus"></i> إضافة
+              </button>
+            </div>
+          </div>
+        </article>
+      `).join('');
+    }
+
+    function changeImg(productId, src, element) {
+      document.getElementById(`main-img-${productId}`).src = src;
+      element.parentElement.querySelectorAll('.thumb-item').forEach(el => el.classList.remove('active'));
+      element.classList.add('active');
+    }
+
+    function filterStore(cat, element = null) {
+      currentFilter = cat;
+      document.getElementById('sectionTitle').textContent = categoryNames[cat] || 'المعروضات';
+      if (element) {
+        document.querySelectorAll('.cat-pill').forEach(btn => btn.classList.remove('active'));
+        element.classList.add('active');
+      }
+    const filtered = products.filter(p => 
+  cat === 'all' || 
+  (Array.isArray(p.category) ? p.category.includes(cat) : p.category === cat) || 
+  p.tags.includes(cat)
+); renderProducts(filtered);
+      document.querySelector('.main-content').scrollIntoView({ behavior: 'smooth' });
+    }
+
+    function handleSearch() {
+      const q = document.getElementById('searchInput').value.trim().toLowerCase();
+      const filtered = products.filter(p => p.title.toLowerCase().includes(q) || (p.specs && p.specs.toLowerCase().includes(q)));
+      renderProducts(filtered);
+    }
+
+    let cart = JSON.parse(localStorage.getItem('hamsa_cart')) || [];
+
+    function saveCart() {
+      localStorage.setItem('hamsa_cart', JSON.stringify(cart));
+      updateCart();
+    }
+
+    function toggleCart() {
+      document.getElementById('cartDrawer').classList.toggle('open');
+      document.getElementById('cartOverlay').classList.toggle('active');
+    }
+
+    function addToCart(title, price, img) {
+      const item = cart.find(i => i.title === title);
+      if (item) item.qty += 1;
+      else cart.push({ title, price, img, qty: 1 });
+      saveCart();
+      toggleCart();
+    }
+
+    function removeFromCart(idx) {
+      cart.splice(idx, 1);
+      saveCart();
+    }
+
+    function updateCart() {
+      document.getElementById('cartCount').textContent = cart.reduce((s, i) => s + i.qty, 0);
+      document.getElementById('cartTotal').textContent = cart.reduce((s, i) => s + (i.price * i.qty), 0) + ' جم';
+      
+      const container = document.getElementById('cartItems');
+      if (cart.length === 0) {
+        container.innerHTML = '<p style="text-align:center; color:var(--text-muted); margin-top:2rem;">السلة فارغة حالياً ✨</p>';
+        return;
+      }
+      container.innerHTML = cart.map((i, idx) => `
+        <div class="cart-item">
+          <img src="${i.img}" onerror="this.src='https://via.placeholder.com/80/F7ECEB/A25F60?text=img'">
+          <div style="flex-grow:1;">
+            <div style="font-size:0.9rem; font-weight:bold; color:var(--text-main);">${i.title}</div>
+            <div style="font-size:0.8rem; color:var(--rose-dark);">${i.price} جم× ${i.qty}</div>
+          </div>
+          <button onclick="removeFromCart(${idx})" style="background:none; border:none; color:#e63946; cursor:pointer; font-size:1rem;"><i class="fa-solid fa-trash-can"></i></button>
+        </div>
+      `).join('');
+    }
+
+     function checkoutMessenger() {
+  if (cart.length === 0) return alert('السلة فارغة!');
+  let msg = 'مرحباً همسة للمجوهرات والساعات والهدايا ✨\n(كل لمسة بحكاية)\n\nأود تأكيد طلبي:\n';
+  let total = 0;
+  cart.forEach((i, idx) => {
+    msg += `${idx+1}. ${i.title} × ${i.qty} (${i.price * i.qty} ر.س)\n`;
+    total += i.price * i.qty;
+  });
+  msg += `\nالإجمالي: ${total} ر.س\nالتغليف: تغليف ملكي فاخر مجاناً\nيرجى تزويدي بطرق الدفع المتاحة وشكراً لكم!`;
+
+  navigator.clipboard.writeText(msg).then(() => {
+    alert('تم نسخ تفاصيل طلبك! الصقيه في محادثة الماسنجر بعد فتحها 📋');
+  });
+
+  window.open('https://www.facebook.com/profile.php?id=61591834652307', '_blank');
+}
+
+    renderProducts(products);
+    renderMarquee();
+    updateCart();
+  </script>
+</body>
+</html>
