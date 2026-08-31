@@ -119,7 +119,8 @@
       border: 1px solid var(--border-rose);
       border-radius: 14px;
       box-shadow: var(--shadow-md);
-      min-width: 210px;
+      min-width: 
+px;
       list-style: none;
       padding: 0.5rem 0;
       display: none;
@@ -406,45 +407,6 @@
       overflow: hidden;
     }
 
-    /* شريط المنتجات القادمة يظهر فوق شريط "وصل حديثاً" */
-    .upcoming-section {
-      margin-top: 1.5rem;
-    }
-
-    .upcoming-section .marquee-title {
-      color: var(--gold-accent);
-    }
-
-    .upcoming-section .marquee-viewport {
-      background: linear-gradient(135deg, #fffdf5 0%, #fff 100%);
-      border-color: rgba(212, 175, 55, 0.3);
-    }
-
-    .upcoming-section .marquee-item .m-img-wrap {
-      border-color: rgba(212, 175, 55, 0.35);
-    }
-
-    .upcoming-badge {
-      position: absolute;
-      top: 8px;
-      right: 8px;
-      z-index: 2;
-      background: var(--gold-gradient);
-      color: #fff;
-      border-radius: 999px;
-      padding: 3px 8px;
-      font-size: 0.68rem;
-      font-weight: 700;
-      box-shadow: 0 2px 8px rgba(197, 154, 39, 0.25);
-    }
-
-    .marquee-note {
-      color: var(--text-muted);
-      font-size: 0.78rem;
-      margin-top: 0.65rem;
-      text-align: center;
-    }
-
     .marquee-title {
       font-family: 'Amiri', serif;
       font-size: 1.35rem;
@@ -464,19 +426,20 @@
       border: 1px solid var(--border-rose);
       padding: 1.1rem 0;
       box-shadow: var(--shadow-sm);
-      direction: rtl;
+      direction: ltr;
     }
 
+    /* شريط متواصل من اليسار إلى اليمين بدون فراغ أو توقف عند إعادة البداية */
     .marquee-track {
       display: flex;
+      align-items: flex-start;
       gap: 1.1rem;
       width: max-content;
-      direction: rtl;
+      direction: ltr;
       flex-direction: row;
       justify-content: flex-start;
-      animation: marqueeMoveRTL 20s linear infinite;
-      animation-timing-function: linear;
-      transform: translate3d(0, 0, 0);
+      animation: marqueeMoveLTR var(--marquee-duration, 20s) linear infinite;
+      transform: translate3d(var(--marquee-shift, -50%), 0, 0);
       will-change: transform;
     }
 
@@ -485,7 +448,7 @@
     }
 
     .marquee-item {
-      flex-shrink: 0;
+      flex: 0 0 165px;
       width: 165px;
       cursor: pointer;
       text-align: center;
@@ -502,12 +465,14 @@
       border: 1px solid var(--border-rose);
       box-shadow: var(--shadow-sm);
       position: relative;
+      background: #FDF9F9;
     }
 
     .marquee-item img {
       width: 100%;
       height: 100%;
       object-fit: cover;
+      display: block;
       transition: transform 0.5s ease;
     }
 
@@ -531,20 +496,55 @@
       margin-top: 2px;
     }
 
-    /* يبدأ من أول صورة في أقصى اليمين ثم يتحرك باتجاه اليسار */
-    @keyframes marqueeMoveRTL {
-      from { transform: translate3d(0, 0, 0); }
-      to { transform: translate3d(-50%, 0, 0); }
+    /*
+      يتحرك من اليسار إلى اليمين.
+      لأن المحتوى مكرر مرتين، نهاية الدورة مطابقة لبدايتها تماماً؛
+      لذلك لا توجد شاشة فارغة أو وقفة حتى لو كان عدد المنتجات قليلاً.
+    */
+    .incoming-section {
+      margin-top: 1.5rem;
+    }
+
+    .incoming-section .marquee-title {
+      color: var(--gold-accent);
+    }
+
+    .incoming-section .marquee-viewport {
+      background: linear-gradient(135deg, #fffdf5 0%, #fff 100%);
+      border-color: rgba(212, 175, 55, 0.3);
+    }
+
+    .incoming-section .marquee-item .m-img-wrap {
+      border-color: rgba(212, 175, 55, 0.35);
+    }
+
+    .incoming-badge {
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      z-index: 2;
+      background: var(--gold-gradient);
+      color: #fff;
+      border-radius: 999px;
+      padding: 3px 8px;
+      font-size: 0.68rem;
+      font-weight: 700;
+      box-shadow: 0 2px 8px rgba(197, 154, 39, 0.25);
+    }
+
+    @keyframes marqueeMoveLTR {
+      from { transform: translate3d(var(--marquee-shift, -50%), 0, 0); }
+      to { transform: translate3d(0, 0, 0); }
     }
 
     @media (max-width: 600px) {
-      .marquee-item, .marquee-item .m-img-wrap { width: 115px; height: 115px; }
+      .marquee-item { flex-basis: 115px; width: 115px; }
+      .marquee-item .m-img-wrap { width: 115px; height: 115px; }
     }
+
   </style>
 </head>
 <body>
-
-  <div class="top-bar">✨ شحن لجميع المناطق | تغليف إهداء ملكي مجاني مع كرت مخصص 🎁</div>
 
   <header>
     <div class="nav-wrap">
@@ -610,18 +610,19 @@
     </div>
   </nav>
 
-  <section class="marquee-section upcoming-section" id="upcomingSection">
-    <div class="marquee-title">⏳ منتجات ستصل خلال أيام</div>
-    <div class="marquee-viewport" aria-label="منتجات ستصل خلال أيام">
-      <div class="marquee-track" id="upcomingTrack"></div>
+  <!-- الشريط الأول: المنتجات الموجودة في الملف والتي تحمل tag = new فقط -->
+  <section class="marquee-section" id="marqueeSection">
+    <div class="marquee-title">🔥 أحدث المنتجات - وصل حديثاً</div>
+    <div class="marquee-viewport" aria-label="أحدث المنتجات التي وصلت حديثاً">
+      <div class="marquee-track" id="marqueeTrack"></div>
     </div>
-    <p class="marquee-note">ترقّبي وصول هذه القطع قريباً؛ الكميات محدودة.</p>
   </section>
 
-  <section class="marquee-section" id="marqueeSection">
-    <div class="marquee-title">🔥 وصل حديثاً - أحدث تشكيلات همسة</div>
-    <div class="marquee-viewport">
-      <div class="marquee-track" id="marqueeTrack"></div>
+  <!-- الشريط الثاني: المنتجات الموجودة في الملف والتي تحمل tag = Incoming فقط -->
+  <section class="marquee-section incoming-section" id="incomingSection">
+    <div class="marquee-title">⏳ منتجات ستصل قريباً</div>
+    <div class="marquee-viewport incoming-viewport" aria-label="المنتجات التي ستصل قريباً">
+      <div class="marquee-track" id="incomingTrack"></div>
     </div>
   </section>
 
@@ -655,12 +656,209 @@
        قاعدة بيانات المنتجات المنظمة والشاملة
        ========================================================= */
     const products = [
-   {
+  {
+        id: 44,
+        title: "قلادة طويلة أنيقة ومتعددة الاستخدامات للنساء ",
+       category: "necklaces",
+        categoryName: "السلاسل والقلادات",
+        tags: [  "picks" , "Incoming" ],
+        price: 000,
+        specs: "قلادة طويلة أنيقة ومتعددة الاستخدامات للنساء، سلسلة لؤلؤ مقلد، زهرة كبيرة، ورد، سلسلة سترة فرنسية أنيقة",
+        badge: "🔥 قريبا على الموقع",
+        images: [
+          " 57.avif",
+           " 58.avif",                 " 59.avif",          " 60.avif",  
+        " 61.avif",          " 62.avif",
+        ]
+      }, 
+  {
+        id: 45,
+        title: "قلادة سلسلة ذهبية سميكة من الفولاذ المقاوم للصدأ بتصميم Figaro ",
+       category: "necklaces",
+        categoryName: "السلاسل والقلادات",
+        tags: [  "picks" , "Incoming" ],
+        price: 000,
+        specs: "قلادة سلسلة ذهبية سميكة من الفولاذ المقاوم للصدأ بتصميم Figaro، قلادة سلسلة ذهبية",
+        badge: "🔥 قريبا على الموقع",
+        images: [
+         " 64.avif",   " 63.avif",
+                          " 65.avif",          " 66.avif",  
+        ]
+      }, 
+ {
+        id: 46,
+        title: "قلادة سلسلة متعددة الطبقات للنساء مصنوعة من مادة الفولاذ المقاوم للصدأ 304 ",
+       category: "necklaces",
+        categoryName: "السلاسل والقلادات",
+        tags: [  "picks" , "Incoming" ],
+        price: 000,
+        specs: "قلادة سلسلة متعددة الطبقات للنساء مصنوعة من مادة الفولاذ المقاوم للصدأ 304، قلادة عصرية غير منتظمة بزينة أزرق لؤلؤي من الفولاذ المقاوم للصدأ",
+        badge: "🔥 قريبا على الموقع",
+        images: [
+         "70.avif",   " 71.avif",
+                          " 72.avif",          " 73.avif",  
+        ]
+      }, 
+{
+        id: 47,
+        title: " سوار من الفولاذ المقاوم للصدأ 304L،",
+       category: "bracelets",
+        categoryName: "الأساور والانسيالات",
+        tags: [  "picks" , "Incoming" ],
+        price: 000,
+        specs: "سوار من الفولاذ المقاوم للصدأ 304L،",
+        badge: "🔥 قريبا على الموقع",
+        images: [
+         " 67.avif",   " 68.avif",
+                          " 69.avif",       
+        ]
+      }, 
+{
+        id: 48,
+        title: "أقراط حلقية بيضاوية هندسية من الفولاذ المقاوم للصدأ مطلية بالذهب عيار 18  ",
+      category: "earrings",
+        categoryName: "حلق وأقراط",
+        tags: [  "picks" , "Incoming" ],
+        price: 000,
+        specs: "أقراط حلقية بيضاوية هندسية من الفولاذ المقاوم للصدأ مطلية بالذهب عيار 18 قيراط مضادة للحساسية للنساء",
+        badge: "🔥 قريبا على الموقع",
+        images: [
+         " 74.avif",   " 75.avif",
+                          " 76.avif",        
+        ]
+      }, 
+{
+        id: 49,
+        title: " أقراط أنيقة من الفولاذ المقاوم للصدأ بتصميم هندسي  ",
+      category: "earrings",
+        categoryName: "حلق وأقراط",
+        tags: [  "picks" , "Incoming" ],
+        price: 000,
+        specs: "أقراط أنيقة من الفولاذ المقاوم للصدأ بتصميم هندسي ذهبي وفضي للاستخدام اليومي والحفلات",
+        badge: "🔥 قريبا على الموقع",
+        images: [
+         " 94.avif",   " 95.avif",
+                          " 96.avif",        
+        ]
+      }, 
+{
+        id: 50,
+        title: " أقراط دائرية مرصعة أنيقة عصرية من الفولاذ المقاوم للصدأ للنساء، عدد 2 قطعة  ",
+      category: "earrings",
+        categoryName: "حلق وأقراط",
+        tags: [  "picks" , "Incoming" ],
+        price: 000,
+        specs: "أقراط دائرية مرصعة أنيقة عصرية من الفولاذ المقاوم للصدأ للنساء، عدد 2 قطعة",
+        badge: "🔥 قريبا على الموقع",
+        images: [
+         " 97.avif",   " 98.avif",
+            " 99.avif",          " 100.avif",        
+        ]
+      }, 
+{
+        id: 51,
+        title: "أقراط دائرية مطليّة بذهب عيار 18 قيراط من الفولاذ المقاوم للصدأ مضادة للحساسية    ",
+      category: "earrings",
+        categoryName: "حلق وأقراط",
+        tags: [  "picks" , "Incoming" ],
+        price: 000,
+        specs: "أقراط دائرية مطليّة بذهب عيار 18 قيراط من الفولاذ المقاوم للصدأ مضادة للحساسية للنساء، مقاومة للبهتان",
+        badge: "🔥 قريبا على الموقع",
+        images: [
+         " 77.avif",   " 78.avif",
+                        " 79.avif",     " 80.avif",        
+        ]
+      }, 
+{
+        id: 52,
+        title: "  أقراط دائرية هندسية، تصميم فريد، أقراط عصرية ",
+      category: "earrings",
+        categoryName: "حلق وأقراط",
+        tags: [  "picks" , "Incoming" ],
+        price: 000,
+        specs: "أقراط دائرية هندسية، تصميم فريد، أقراط عصرية",
+        badge: "🔥 قريبا على الموقع",
+        images: [
+         " 106.avif",   " 107.avif",
+                          " 108.avif",        
+        ]
+      }, 
+{
+        id: 53,
+        title: " زوج من أقراط نسائية مبالغ فيها بتصميم عتيق من الفولاذ المقاوم للصدأ 304  ",
+      category: "earrings",
+        categoryName: "حلق وأقراط",
+        tags: [  "picks" , "Incoming" ],
+        price: 000,
+        specs: "زوج من أقراط نسائية مبالغ فيها بتصميم عتيق من الفولاذ المقاوم للصدأ 304 متعددة الطبقات دائرية مفرغة",
+        badge: "🔥 قريبا على الموقع",
+        images: [
+         " 91.avif",   " 92.avif",
+                          " 93.avif",        
+        ]
+      }, 
+{
+        id: 54,
+        title: " سوار فولاذي مقاوم للصدأ بتصميم فيليجر مجوف كلاسيكي  ",
+      category: "bracelets",
+        categoryName: "الأساور والانسيالات",
+        tags: [  "picks" , "Incoming" ],
+        price: 000,
+        specs: "سوار فولاذي مقاوم للصدأ بتصميم فيليجر مجوف كلاسيكي",
+        badge: "🔥 قريبا على الموقع",
+        images: [
+         " 102.avif",   " 103.avif",
+             " 104.avif",    " 105.avif",                   
+        ]
+      }, 
+{
+        id: 55,
+        title: " سوار نسائي من الفولاذ المقاوم للصدأ 304 مطلي بالذهب عيار 18 قيراط  ",
+      category: "bracelets",
+        categoryName: "الأساور والانسيالات",
+        tags: [  "picks" , "Incoming" ],
+        price: 000,
+        specs: "سوار نسائي من الفولاذ المقاوم للصدأ 304 مطلي بالذهب عيار 18 قيراط، يتميز بسوار مُحكَم من زيركونيا مكعبة مُحكمة بثلاثة صفوف، مضاد للحساسية، مقاوم للألوان",
+        badge: "🔥 قريبا على الموقع",
+        images: [
+         " 88.avif",   " 89.avif",
+                          " 90.avif",        
+        ]
+      }, 
+{
+        id: 56,
+        title: " قطعة واحدة قلادة طويلة عصرية من الفولاذ المقاوم للصدأ للنساء  ",
+      category: "necklaces",
+        categoryName: "السلاسل والقلادات",
+        tags: [  "picks" , "Incoming" ],
+        price: 000,
+        specs: "قطعة واحدة قلادة طويلة عصرية من الفولاذ المقاوم للصدأ للنساء، سلسلة سترة، مجوهرات، هدية عيد ميلاد",
+        badge: "🔥 قريبا على الموقع",
+        images: [
+         " 85.avif",   " 86.avif",
+                          " 87.avif",        
+        ]
+      }, 
+{
+        id: 57,
+        title: " قلادة نسائية بتصميم قلادة دائرية على شكل صليب من الفولاذ المقاوم للصدأ  ",
+      category: "necklaces",
+        categoryName: "السلاسل والقلادات",
+        tags: [  "picks" , "Incoming" ],
+        price: 000,
+        specs: "قلادة نسائية بتصميم قلادة دائرية من الفولاذ المقاوم للصدأ، سلسلة ترفية جديدة للترقو، إكسسوار ساحر، هدية للحفلات",
+        badge: "🔥 قريبا على الموقع",
+        images: [
+         " 81.avif",   " 82.avif",
+                     " 83.avif",      " 84.avif",        
+        ]
+      }, 
+ {
         id: 34,
         title: "قلادة بقلادة قلب مخططة كلاسيكية، قلادة عصرية ",
        category: "necklaces",
         categoryName: "السلاسل والقلادات",
-        tags: [ "new", "picks" , "incom" ],
+        tags: [  "picks" , "Incoming" ],
         price: 000,
         specs: "قلادة بقلادة قلب مخططة كلاسيكية، قلادة عصرية متعددة الاستخدامات من الفولاذ المقاوم للصدأ 304",
         badge: "🔥 قريبا على الموقع",
@@ -676,7 +874,7 @@
         title: "قلادة على شكل قلب أنيقة ورائعة من الفولاذ المقاوم للصدأ 316 ",
        category: "necklaces",
         categoryName: "السلاسل والقلادات",
-        tags: [ "new", "picks" , "incom" ],
+        tags: [ "picks" , "Incoming" ],
         price: 000,
         specs: "قلادة على شكل قلب أنيقة ورائعة من الفولاذ المقاوم للصدأ 316L عالي الجودة مطلية بالذهب عيار 18 قيراط. قطعة مجوهرات متعددة الاستخدامات مناسبة لجميع المواسم",
         badge: "🔥 قريبا على الموقع",
@@ -692,7 +890,7 @@
         title: "سلسلة مسطحة سميكة عصرية، سلسلة هيب هوب، مطلية بالذهب 18 قيراط  ",
        category: "necklaces",
         categoryName: "السلاسل والقلادات",
-        tags: [ "new", "picks" , "incom" ],
+        tags: [  "picks" , "Incoming" ],
         price: 000,
         specs: "سلسلة مسطحة سميكة عصرية، سلسلة هيب هوب، مطلية بالذهب 18 قيراط، قلادة سلسلة من الفولاذ المقاوم للصدأ",
         badge: "🔥 قريبا على الموقع",
@@ -708,7 +906,7 @@
         title: "قلادة سلسلة أنيقة وبسيطة مطلية بالذهب 24 قيراط  ",
        category: "necklaces",
         categoryName: "السلاسل والقلادات",
-        tags: [ "new", "picks" , "incom" ],
+        tags: [ "picks" , "Incoming" ],
         price: 000,
         specs: "قلادة سلسلة أنيقة وبسيطة مطلية بالذهب 24 قيراط مستوحاة من دبي الشرقية، مثالية للارتداء اليومي",
         badge: "🔥 قريبا على الموقع",
@@ -724,7 +922,7 @@
         title: " قلادة إسلامية دينية   ",
        category: "necklaces",
         categoryName: "السلاسل والقلادات",
-        tags: [ "new", "picks" , "incom" ],
+        tags: [  "picks" , "Incoming" ],
         price: 000,
         specs: "قلادة إسلامية دينية على الطراز الشرق أوسطي، قلادة عربية",
         badge: "🔥 قريبا على الموقع",
@@ -740,7 +938,7 @@
         title: " قلادة فاخرة من الفولاذ المقاوم للصدأ بنقش بارز بأجواء أنيقة   ",
        category: "necklaces",
         categoryName: "السلاسل والقلادات",
-        tags: [ "new", "picks" , "incom" ],
+        tags: [  "picks" , "Incoming" ],
         price: 000,
         specs: "قلادة فاخرة من الفولاذ المقاوم للصدأ بنقش بارز بأجواء أنيقة، مضادة للحساسية، مقاومة للبهتان",
         badge: "🔥 قريبا على الموقع",
@@ -750,27 +948,13 @@
           "32.avif"     
         ]
       }, 
- {
-        id: 41,
-        title: " قلادة قطعة واحدة بتصميم ريترو على الطراز القضائي   ",
-       category: "necklaces",
-        categoryName: "السلاسل والقلادات",
-        tags: [ "new", "picks" , "incom" ],
-        price: 000,
-        specs: "قلادة قطعة واحدة بتصميم ريترو على الطراز القضائي، مع تعليقة على شكل قطرة فنج، وسلسلة ملتوية، قلادة متعددة الاستخدامات ورائعة من الفولاذ المقاوم للصدأ",
-        badge: "🔥 قريبا على الموقع",
-        images: [
-          "16.avif",
-          "17.avif",
-          "18.avif"     
-        ]
-      }, 
+ 
  {
         id: 42,
         title: "4 أساور عشوائية أنيقة من الفولاذ المقاوم للصدأ    ",
        category: "necklaces",
         categoryName: "السلاسل والقلادات",
-        tags: [ "incom" , "new", "picks"  ],
+        tags: [ "Incoming" , "picks"  ],
         price: 000,
         specs: "4 أساور عشوائية أنيقة من الفولاذ المقاوم للصدأ  الهدية المثالية لجميع المناسبات",
         badge: "🔥 قريبا على الموقع",
@@ -785,7 +969,7 @@
         title: "أقراط بنمط هندسي 304 304 فولاذ مقاوم للصدأ    ",
        category: "earrings",
         categoryName: "حلق وأقراط",
-        tags: [ "new", "picks" , "incom" ],
+        tags: [  "picks" , "Incoming" ],
         price: 000,
         specs: "أقراط بنمط هندسي 304 304 فولاذ مقاوم للصدأ أقراط عصرية بسيطة عصرية هدية",
         badge: "🔥 قريبا على الموقع",
@@ -815,7 +999,7 @@
         category: "necklaces",
         categoryName: "السلاسل والقلادات",
         tags: ["new", "picks"],
-        price: 210,
+        price: 250,
         specs: "قلادة سلك من الفولاذ المقاوم للصدأ على شكل الله الإسلامي",
         badge: "🔥 وصل حديثاً",
         images: [
@@ -842,7 +1026,7 @@
         title: "قلادة بقلادة قلب مخططة كلاسيكية، قلادة عصرية ",
        category: "necklaces",
         categoryName: "السلاسل والقلادات",
-        tags: [ "new", "picks" , "incom" ],
+        tags: [ "picks" , "Incoming" ],
         price: 000,
         specs: "قلادة بقلادة قلب مخططة كلاسيكية، قلادة عصرية متعددة الاستخدامات من الفولاذ المقاوم للصدأ 304",
         badge: "🔥 وصل حديثاً",
@@ -873,7 +1057,7 @@
         title: "طقم أساور نسائية كلاسيكية يومية من الفولاذ المقاوم للصدأ ",
        category: "bracelets",
         categoryName: "الأساور والانسيالات",
-        tags: ["incom" , "new", "picks"],
+        tags: [ "new", "picks"],
         price: 665,
         specs: "طقم أساور نسائية كلاسيكية يومية من الفولاذ المقاوم للصدأ، إكسسوارات متعددة الاستخدامات",
         badge: "🔥 وصل حديثاً",
@@ -889,7 +1073,7 @@
         title: "سوار نسائي من الأسلاك الفولاذية متعدد الطبقات قطعة 1 ",
        category: "bracelets",
         categoryName: "الأساور والانسيالات",
-        tags: [ "new", "picks"],
+        tags: [ "picks"],
         price: 230,
         specs: "سوار نسائي من الأسلاك الفولاذية متعدد الطبقات قطعة 1، مجوهرات أنيقة، إكسسوارات متعددة الاستخدامات",
         badge: "🔥 وصل حديثاً",
@@ -904,7 +1088,7 @@
         title: "سوار فاخر مطلي بالذهب 18K",
         category: "bracelets",
         categoryName: "الأساور والانسيالات",
-        tags: ["new", "bestseller", "gifts"],
+        tags: [ "bestseller", "gifts"],
         price: 170,
         specs: "سوار | مطلي بالذهب 18K، طراز عتيق، مثالي للارتداء اليومي أو وهدية مناسبة لجميع الفصول، مثالي للأعياد وحفلات الزفاف",
         badge: "🔥 وصل حديثاً",
@@ -934,9 +1118,9 @@
         title: "سلسلة  قلب الخوخ الفاخرة",
         category: "necklaces",
         categoryName: "السلاسل والقلادات",
-        tags: ["new", "gifts", "picks"],
+        tags: ["gifts", "picks"],
         price: 250,
-        specs: "طعة واحدة قلادة صغيرة من النحاس المستدير على شكل خرزة على شكل قلب خوخ، رائعة وأنيقة وعصرية، سهلة",
+        specs: "قطعة واحدة قلادة صغيرة من النحاس المستدير على شكل خرزة على شكل قلب خوخ، رائعة وأنيقة وعصرية، سهلة",
         badge: "🎁 خيار إهداء مميز",
         images: [
           "21c0ec63-c62a-4e92-9002-177511e3265c.jpg",
@@ -951,7 +1135,7 @@
         title: "قلادة فاخرة مزينة بخمسة خرز صغيرة",
         category: "necklaces",
         categoryName: "السلاسل والقلادات",
-        tags: ["new", "gifts", "picks"],
+        tags: [ "gifts", "picks"],
         price: 95,
         specs: "لادة فاخرة مزينة بخمسة خرز صغيرة، مطلية، مصنوعة من الفولاذ المقاوم للصدأ، مناسبة للارتداء اليومي للنساء أو كهدية",
         badge: "🎁 خيار إهداء مميز",
@@ -966,7 +1150,7 @@
         title: "طقم أساور وحلقة نسائية بتصميم فضي",
         category: ["bracelets","rings"],
         categoryName: ["خواتم " ,"الأساور والانسيالات"],       
-        tags: ["new", "gifts", "picks"],
+        tags: [ "gifts", "picks"],
         price: 370,
         specs: "طقم أساور وحلقة نسائية بتصميم رمضان على الطراز العربي مطلي بالذهب النحاسي، طبقتان مزدوجتين",
         badge: "🎁 خيار إهداء مميز",
@@ -981,7 +1165,7 @@
         title: "طقم أساور وحلقة نسائية بتصميم ذهبي",
                   category: ["bracelets","rings"],
         categoryName: ["خواتم " ,"الأساور والانسيالات"],
-        tags: ["new", "gifts", "picks"],
+        tags: [ "gifts", "picks"],
         price: 385,
         specs: "طقم أساور وحلقة نسائية بتصميم رمضان على الطراز العربي مطلي بالذهب النحاسي، طبقتان مزدوجتين",
         badge: "🎁 خيار إهداء مميز",
@@ -996,7 +1180,7 @@
         title: "طقم أساور نسائية أنيقة مطلية بالذهب عيار 18 قيراط ",
           category: "bracelets",
         categoryName: "الأساور والانسيالات",
-        tags: ["new", "gifts", "picks"],
+        tags: [ "gifts", "picks"],
         price: 900,
         specs: "طقم أساور نسائية أنيقة مطلية بالذهب عيار 18 قيراط مكون من 5 قطع، سوار مرصع قابل للتركيب فوق بعضه، مرصع بزركونيا مكعبة صناعية، تصميم عصري مقاوم للبهتان وغير مسبب للحساسية",
         badge: "🎁 خيار إهداء مميز",
@@ -1012,7 +1196,7 @@
         title: "طقم قلادة و سوار من الفولاذ ",
         category: ["necklaces",  "bracelets"],
         categoryName: ["السلاسل والقلادات " ,"الأساور والانسيالات"],
-        tags: ["new", "gifts", "picks"],
+        tags: [ "gifts", "picks"],
         price: 345,
         specs: "طقم قلادة و سوار من الفولاذ المقاوم للصدأ مطلي بالذهب عيار 18 قيراط",
         badge: "🎁 خيار إهداء مميز",
@@ -1029,7 +1213,7 @@
         title: "قطعة واحدة من قلادة شوكير  ",
         category: "necklaces",
         categoryName: ["السلاسل والقلادات " ,"الأساور والانسيالات"],
-        tags: ["new", "gifts", "picks"],
+        tags: [ "gifts", "picks"],
         price: 130,
         specs: "قطعة واحدة من قلادة شوكير سلسلة قلب حب مصنوعة من الفولاذ المقاوم للصدأ، مجوهرات نسائية عصرية وأنيقة، مناسبة للارتداء اليومي",
         badge: "🎁 خيار إهداء مميز",
@@ -1044,7 +1228,7 @@
         title: "طقم حلقان نسائية متدلية عصرية مكون من 6 قطع",
           category: "earrings",
         categoryName: "حلق وأقراط",
-        tags: ["new", "gifts", "picks"],
+        tags: ["gifts", "picks"],
         price: 170,
         specs: "طقم أقراط نسائية متدلية عصرية مكون من 6 قطع، بتصميم بسيط على الطراز الياباني/الكوري، أقراط مسمارية على شكل قلب من زركونيا مكعبة",
         badge: "🎁 خيار إهداء مميز",
@@ -1061,7 +1245,7 @@
         title: "قلادة ذهبية",
         category: "necklaces",
         categoryName: "السلاسل والقلادات",
-        tags: ["new", "gifts", "picks"],
+        tags: ["gifts", "picks"],
         price: 170,
         specs: "لادة ذهبية نسائية، قلادات رقيقة للنساء، قلادات شوكير سهلة بتصميم مشبك ورق، قلادات بيضاوية مفتوحة لطيفة وبسيطة",
         badge: "🎁 خيار إهداء مميز",
@@ -1076,7 +1260,7 @@
         title: "قلادة نسائية فاخرة من نيش، سلسلة عظمة الترقوة، ",
         category: "necklaces",
         categoryName: "السلاسل والقلادات",
-        tags: ["new", "gifts", "picks"],
+        tags: [ "gifts", "picks"],
         price: 255,
         specs: "قلادة نسائية فاخرة من نيش، سلسلة عظمة الترقوة، ذهبية مطلية بسهولة، خفيفة الوزن، بتصميم Clover	",
         badge: "🎁 خيار إهداء مميز",
@@ -1091,7 +1275,7 @@
         title: "قلادة عالية الجودة من الفولاذ المقاوم للصدأ مضادة للبهتان",
         category: "necklaces",
         categoryName: "السلاسل والقلادات",
-        tags: ["new", "gifts"],
+        tags: [ "gifts"],
         price: 140,
         specs: "قلادة عالية الجودة من الفولاذ المقاوم للصدأ مضادة للبهتان، قلادة نسائية عصرية، بسيطة وأنيقة",
         badge: "🎁 خيار إهداء مميز",
@@ -1107,7 +1291,7 @@
         title: "قلادة \"زهرة الحياة\" العصرية من الفولاذ المقاوم للصدأ",
         category: "necklaces",
         categoryName: "السلاسل والقلادات",
-        tags: ["new", "gifts"],
+        tags: [ "gifts"],
         price: 265,
         specs: "قلادة \"زهرة الحياة\" العصرية من الفولاذ المقاوم للصدأ للنساء، لون ذهبي، قلادة طويلة",
         badge: "🎁 خيار إهداء مميز",
@@ -1123,7 +1307,7 @@
         title: "قطعة قلادة طويلة قابلة للتعديل على شكل Y",
         category: "necklaces",
         categoryName: "السلاسل والقلادات",
-        tags: ["new", "picks"],
+        tags: [ "picks"],
         price: 187,
         specs: "قطعة قلادة طويلة قابلة للتعديل على شكل Y من الفولاذ المقاوم للصدأ مطلية بالذهب 18K",
         badge: "🎁 خيار إهداء مميز",
@@ -1137,7 +1321,7 @@
         title: "قلادة سلسلة سويتر طويلة على الطراز الكوري",
         category: "necklaces",
         categoryName: "السلاسل والقلادات",
-        tags: ["new", "gifts"],
+        tags: [ "gifts"],
         price: 180,
         specs: "قلادة سلسلة سويتر طويلة على الطراز الكوري، زهرة متعددة الطبقات، لؤلؤ مقلد، قلادة وردة",
         badge: "🎁 خيار إهداء مميز",
@@ -1167,7 +1351,7 @@
         title: "[قلادة Ganicat] قلادة نسائية من الفولاذ المقاوم للصدأ 316 316،",
         category: "necklaces",
         categoryName: "السلاسل والقلادات",
-        tags: ["new", "picks"],
+        tags: [ "picks"],
         price: 150,
         specs: "[قلادة Ganicat] قلادة نسائية من الفولاذ المقاوم للصدأ 316 316، مقاومة للبهتان ومضادة للحساسية",
         badge: "🎁 خيار إهداء مميز",
@@ -1183,7 +1367,7 @@
         title: "قلادة أنيقة وبسيطة من الفولاذ المقاوم للصدأ 304 مع سلسلة ثلاثية الطبقات",
         category: "necklaces",
         categoryName: "السلاسل والقلادات",
-        tags: ["new", "picks"],
+        tags: [ "picks"],
         price: 245,
         specs: "قلادة أنيقة وبسيطة من الفولاذ المقاوم للصدأ 304 مع سلسلة ثلاثية الطبقات، قلادة عملة",
         badge: "🎁 خيار إهداء مميز",
@@ -1214,7 +1398,7 @@
         title: "قلادة سلسلة أنيقة للجنسين مطلية بالذهب عيار 18K",
         category: "necklaces",
         categoryName: "السلاسل والقلادات",
-        tags: ["new", "gifts"],
+        tags: [ "gifts"],
         price: 110,
         specs: "قلادة سلسلة أنيقة للجنسين مطلية بالذهب عيار 18K مع قلادة رائعة",
         badge: "🎁 خيار إهداء مميز",
@@ -1244,7 +1428,7 @@
         title: "قطعة أساور من الفولاذ المقاوم للصدأ بنمط فيجارو وكوبا",
         category: "bracelets",
         categoryName: "الأساور والانسيالات",
-        tags: ["new", "picks"],
+        tags: [ "picks"],
         price: 250,
         specs: "قطعة أساور من الفولاذ المقاوم للصدأ بنمط فيجارو وكوبا، مجموعة مزدوجة الطبقات قابلة للتكديس",
         badge: "🎁 خيار إهداء مميز",
@@ -1274,7 +1458,7 @@
         title: "قلادة فضية عصرية ورائعة لامعة مضادة للحساسية قطعة واحدة، سلسلة عظمة الترقوة",
         category: "necklaces",
         categoryName: "السلاسل والقلادات",
-        tags: ["new", "offers"],
+        tags: [ "offers"],
         price: 65,
         specs: "قلادة عصرية ورائعة لامعة مضادة للحساسية قطعة واحدة، سلسلة عظمة الترقوة دقيقة للنساء من الفولاذ المقاوم للصدأ، مقاومة للبهتان،",
         badge: "🎁 خيار إهداء مميز",
@@ -1305,7 +1489,7 @@
         title: "قلادة أنيقة على شكل مربع من الفولاذ المقاوم للصدأ،",
         category: "necklaces",
         categoryName: "السلاسل والقلادات",
-        tags: ["new", "gifts"],
+        tags: [ "gifts"],
         price: 120,
         specs: "قلادة أنيقة على شكل مربع من الفولاذ المقاوم للصدأ، مناسبة للنساء للارتداء في الحفلات",
         badge: "🎁 خيار إهداء مميز",
@@ -1319,7 +1503,7 @@
         title: "قلادة ذهبية عصرية ورائعة لامعة مضادة للحساسية قطعة واحدة، سلسلة عظمة الترقوة",
         category: "necklaces",
         categoryName: "السلاسل والقلادات",
-        tags: ["new", "offers"],
+        tags: [ "offers"],
         price: 80,
         specs: "قلادة عصرية ورائعة لامعة مضادة للحساسية قطعة واحدة، سلسلة عظمة الترقوة دقيقة للنساء من الفولاذ المقاوم للصدأ، مقاومة للبهتان،",
         badge: "🎁 خيار إهداء مميز",
@@ -1345,65 +1529,79 @@
       bestseller: '❤️ القطع الأكثر طلباً ومبيعاً',
       gifts: '🎁 باقات وتنسيقات الهدايا',
       offers: '🏷️ العروض والتخفيضات الحصرية',
-      picks: '✨ اختيارات وتوصيات همسة الخاصة'
+      picks: '✨ اختيارات وتوصيات همسة الخاصة',
+      Incoming: '⏳ منتجات ستصل قريباً'
     };
 
     let currentFilter = 'all';
 
-    const MARQUEE_SPEED = '20s';
+    // سرعة الحركة بالبكسل/ثانية، وتُحسب مدة الدورة تلقائياً حسب عدد المنتجات.
+    const MARQUEE_PIXELS_PER_SECOND = 90;
+    const MARQUEE_COPIES = 20;
 
-    function renderMarquee() {
-      const section = document.getElementById('marqueeSection');
-      const track = document.getElementById('marqueeTrack');
-      const newItems = products.filter(p => p.tags.includes('new'));
+    // لا نضيف أي منتج جديد. نكرر نفس المنتجات الموجودة في products بصرياً فقط
+    // حتى تظل الحركة مستمرة بلا فراغ عند نهاية المجموعة.
+    function renderProductMarquee({ sectionId, trackId, tag, badgeClass = '', badgeText = '', fallback = 'Hamsa' }) {
+      const section = document.getElementById(sectionId);
+      const track = document.getElementById(trackId);
+      const items = products.filter(p => Array.isArray(p.tags) && p.tags.includes(tag));
 
-      if (newItems.length === 0) {
+      if (!section || !track) return;
+
+      if (!items.length) {
         section.style.display = 'none';
         return;
       }
 
-      const doubled = [...newItems, ...newItems];
+      section.style.display = '';
 
-      track.innerHTML = doubled.map(p => `
-        <div class="marquee-item" onclick="filterStore('new', document.querySelector('.cat-pill[onclick*=&quot;new&quot;]'))">
+      // هذه نسخ متكررة من نفس القائمة وليست منتجات إضافية.
+      const repeatedItems = Array.from({ length: MARQUEE_COPIES }, () => items).flat();
+
+      track.innerHTML = repeatedItems.map(p => `
+        <div class="marquee-item" onclick="filterStore('${tag}', null)">
           <div class="m-img-wrap">
-            <img src="${p.images[0]}" onerror="this.src='https://via.placeholder.com/165/F7ECEB/A25F60?text=Hamsa'">
+            ${badgeText ? `<span class="${badgeClass}">${badgeText}</span>` : ''}
+            <img src="${p.images[0]}" alt="${p.title}" loading="lazy" onerror="this.src='https://via.placeholder.com/165/F7ECEB/A25F60?text=${fallback}'">
           </div>
           <div class="m-title">${p.title}</div>
           <div class="m-price">${p.price} جم</div>
         </div>
       `).join('');
 
-      // مدة اللفة الكاملة ثابتة دايمًا (20 ثانية) بغض النظر عن عدد المنتجات
-      track.style.animationDuration = MARQUEE_SPEED;
+      // LTR: يبدأ الشريط من اليسار ويتحرك إلى اليمين، ثم تنتقل الدورة التالية
+      // فوراً إلى موضع البداية دون شاشة فارغة أو توقف.
+      requestAnimationFrame(() => {
+        const cycleDistance = track.scrollWidth / MARQUEE_COPIES;
+        const viewportWidth = track.parentElement.clientWidth;
+        const shiftPercent = -(cycleDistance / track.scrollWidth) * 100;
+        const duration = Math.max(3, Math.max(cycleDistance, viewportWidth) / MARQUEE_PIXELS_PER_SECOND);
 
-      // استمرار الحركة بدون أي وقفة أو اختفاء للصور عند نهاية الدورة
-      track.style.animationPlayState = 'running';
+        track.style.setProperty('--marquee-shift', `${shiftPercent}%`);
+        track.style.setProperty('--marquee-duration', `${duration}s`);
+        track.style.animationPlayState = 'running';
+      });
     }
 
-    function renderUpcoming() {
-      const section = document.getElementById('upcomingSection');
-      const track = document.getElementById('upcomingTrack');
-      const upcomingItems = products.filter(p => p.tags.includes('incom'))
+    function renderMarquee() {
+      // الشريط الأول يعرض فقط المنتجات الموجودة في الملف والتي تحمل tag: "new".
+      renderProductMarquee({
+        sectionId: 'marqueeSection',
+        trackId: 'marqueeTrack',
+        tag: 'new'
+      });
+    }
 
-      if (upcomingItems.length === 0) {
-        section.style.display = 'none';
-        return;
-      }
-
-      const doubled = [...upcomingItems, ...upcomingItems];
-      track.innerHTML = doubled.map(p => `
-        <div class="marquee-item" onclick="filterStore('incom', null)">
-          <div class="m-img-wrap">
-            <span class="upcoming-badge">قريباً</span>
-            <img src="${p.images[0]}" alt="${p.title}" onerror="this.src='https://via.placeholder.com/165/FFFDF5/C59A27?text=Soon'">
-          </div>
-          <div class="m-title">${p.title}</div>
-          <div class="m-price">${p.price} جم</div>
-        </div>
-      `).join('');
-
-      track.style.animationDuration = MARQUEE_SPEED;
+    function renderIncoming() {
+      // الشريط الثاني يعرض فقط المنتجات الموجودة في الملف والتي تحمل tag: "Incoming".
+      renderProductMarquee({
+        sectionId: 'incomingSection',
+        trackId: 'incomingTrack',
+        tag: 'Incoming',
+        badgeClass: 'incoming-badge',
+        badgeText: 'قريباً',
+        fallback: 'Soon'
+      });
     }
 
     function renderProducts(items) {
@@ -1534,8 +1732,8 @@
 }
 
     renderProducts(products);
-    renderUpcoming();
     renderMarquee();
+    renderIncoming();
     updateCart();
   </script>
 </body>
